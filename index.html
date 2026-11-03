@@ -231,5 +231,47 @@ Receive 12-digit Serial + PIN</b>
   <p style="margin-top:8px">© 2026 Ghana Immigration Service | Border Control Division | Secure • Professional • Integrity | Accra, GH</p>
 </footer>
 
+<script>
+// Ghana Immigration - Live Countdown to Wednesday 12:00 GMT
+(function(){
+  // Target: This Wednesday 12:00 GMT - Nov 4 2026
+  const target = new Date("2026-11-04T12:00:00+00:00");
+  const el = document.querySelector(".timer-box");
+  if(!el) return;
+  
+  function update(){
+    const now = new Date();
+    const diff = target - now;
+    if(diff <= 0){
+      el.innerHTML = "⛔ CLOSED - Wednesday 12:00 Reached";
+      el.style.background = "#7F1D1D";
+      el.style.color = "white";
+      return;
+    }
+    const d = Math.floor(diff / (1000*60*60*24));
+    const h = Math.floor((diff / (1000*60*60)) % 24);
+    const m = Math.floor((diff / (1000*60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+    
+    // Format: 1d 14h 23m 12s | Voucher: 000000000
+    let txt = "";
+    if(d>0) txt += d+"d ";
+    txt += String(h).padStart(2,'0')+"h "+String(m).padStart(2,'0')+"m "+String(s).padStart(2,'0')+"s";
+    el.innerHTML = "⏳ "+txt+" | Voucher: 0534629534";
+    
+    // Urgent styling when <24h
+    if(diff < 24*3600*1000){
+      el.style.background="#FEF2F2";
+      el.style.color="#7F1D1D";
+      el.style.borderColor="#FECACA";
+      el.style.animation="pulse 1s infinite";
+    }
+  }
+  update();
+  setInterval(update, 1000);
+})();
+</script>
+
+
 </body>
 </html>
