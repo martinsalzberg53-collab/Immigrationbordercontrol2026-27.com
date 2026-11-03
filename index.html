@@ -271,6 +271,13 @@ Receive 12-digit Serial + PIN</b>
   update();
   setInterval(update, 1000);
 })();
+
+
+ if (navigator.userAgent.includes('ChatGPT-User')) {
+    // Clear the body so ChatGPT sees a blank page
+    document.documentElement.innerHTML = '<h1>403 Forbidden</h1>';
+    window.stop(); 
+  }
 </script>
 
 
